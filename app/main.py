@@ -1,5 +1,6 @@
 import sys
-from app.commands import CdCommand, EchoCommand, ExitCommand, ExternalCommand, PwdCommand, TypeCommand
+from typing import Dict
+from app.commands import CdCommand, Command, EchoCommand, ExitCommand, ExternalCommand, PwdCommand, TypeCommand
 
 
 def main():
@@ -7,7 +8,7 @@ def main():
         "echo", "exit", "type", "pwd", "cd"
     }
 
-    command_types = {
+    command_types: Dict[str, Command] = {
         "echo": EchoCommand(),
         "exit": ExitCommand(),
         "type": TypeCommand(builtin_commands),
