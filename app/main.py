@@ -41,7 +41,7 @@ def main():
             if new_dir_exists:
                 os.chdir(new_dir)
             else:
-                sys.stdout.write(f"cd {new_dir}: No such file or directory\n")
+                sys.stdout.write(f"cd: {new_dir}: No such file or directory\n")
 
         elif cmd == "type":
             arg = args[0] if args else ""
