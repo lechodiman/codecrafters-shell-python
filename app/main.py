@@ -24,7 +24,8 @@ def main():
             "echo": "builtin",
             "exit": "builtin",
             "type": "builtin",
-            "pwd": "builtin"
+            "pwd": "builtin",
+            "cd": "builtin"
         }
 
         if cmd == "echo":
@@ -33,6 +34,15 @@ def main():
             sys.exit(0)
         elif cmd == "pwd":
             sys.stdout.write(f"{os.getcwd()}\n")
+        elif cmd == "cd":
+            new_dir = args[0] if args else os.environ.get('HOME')
+            new_dir_exists = os.path.exists(new_dir)
+
+            if new_dir_exists:
+                os.chdir(new_dir)
+            else:
+                sys.stdout.write(f"cd {new_dir}: no such file or directory\n")
+
         elif cmd == "type":
             arg = args[0] if args else ""
             cmd_type = command_types.get(arg, "nonexistent")
