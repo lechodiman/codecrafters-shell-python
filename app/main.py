@@ -9,10 +9,14 @@ def main():
         # Wait for user input
         input_command = input()
 
-        if input_command == "exit 0":
-            sys.exit(0)
+        cmd, *args = input_command.split(' ')
 
-        sys.stdout.write(f"{input_command}: command not found\n")
+        if cmd == "echo":
+            sys.stdout.write(' '.join(args) + '\n')
+        elif input_command == "exit 0":
+            sys.exit(0)
+        else:
+            sys.stdout.write(f"{input_command}: command not found\n")
 
 
 if __name__ == "__main__":
