@@ -37,6 +37,10 @@ class PwdCommand(Command):
 class CdCommand(Command):
     def execute(self, cmd, *args):
         new_dir = args[0] if args else os.environ.get('HOME')
+
+        if new_dir == "~":
+            new_dir = os.environ.get('HOME')
+
         new_dir_exists = os.path.exists(new_dir)
 
         if new_dir_exists:
