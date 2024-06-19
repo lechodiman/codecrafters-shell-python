@@ -1,4 +1,14 @@
+import os
 import sys
+
+
+def find_executable(cmd: str) -> str:
+    path = os.environ.get('PATH')
+    executable_dirs = path.split(':')
+
+    for dir in executable_dirs:
+        if os.path.exists(f"{dir}/{cmd}"):
+            return f"{dir}/{cmd}"
 
 
 def main():
@@ -30,7 +40,12 @@ def main():
             if cmd_type == "builtin":
                 sys.stdout.write(f"{arg} is a shell builtin\n")
             else:
-                sys.stdout.write(f"{arg}: not found\n")
+                path = find_executable(arg)
+
+                if path:
+                    sys.stdout.write(f"{arg} is {path}\n")
+                else:
+                    sys.stdout.write(f"{arg}: not found\n")
 
 
 if __name__ == "__main__":
