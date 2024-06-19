@@ -1,5 +1,5 @@
 import sys
-from commands import CdCommand, EchoCommand, ExitCommand, ExternalCommand, PwdCommand, TypeCommand
+from app.commands import CdCommand, EchoCommand, ExitCommand, ExternalCommand, PwdCommand, TypeCommand
 
 
 def main():

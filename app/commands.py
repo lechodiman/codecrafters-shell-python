@@ -2,9 +2,10 @@ from abc import ABC, abstractmethod
 import os
 import sys
 import subprocess
+from typing import Optional
 
 
-def find_executable(cmd: str) -> str:
+def find_executable(cmd: str) -> Optional[str]:
     path = os.environ.get('PATH')
     executable_dirs = path.split(':')
 
@@ -15,27 +16,27 @@ def find_executable(cmd: str) -> str:
 
 class Command(ABC):
     @abstractmethod
-    def execute(self, cmd, *args):
+    def execute(self, cmd: str, *args: str) -> None:
         pass
 
 
 class EchoCommand(Command):
-    def execute(self, cmd, *args):
+    def execute(self, cmd: str, *args: str) -> None:
         sys.stdout.write(' '.join(args) + '\n')
 
 
 class ExitCommand(Command):
-    def execute(self, cmd, *args):
+    def execute(self, cmd: str, *args: str) -> None:
         sys.exit(0)
 
 
 class PwdCommand(Command):
-    def execute(self, cmd, *args):
+    def execute(self, cmd: str, *args: str) -> None:
         sys.stdout.write(f"{os.getcwd()}\n")
 
 
 class CdCommand(Command):
-    def execute(self, cmd, *args):
+    def execute(self, cmd: str, *args: str) -> None:
         new_dir = args[0] if args else os.environ.get('HOME')
 
         if new_dir == "~":
@@ -50,10 +51,10 @@ class CdCommand(Command):
 
 
 class TypeCommand(Command):
-    def __init__(self, builtin_commands):
+    def __init__(self, builtin_commands: set[str]):
         self.builtin_commands = builtin_commands
 
-    def execute(self, cmd, *args):
+    def execute(self, cmd: str, *args: str) -> None:
         arg = args[0] if args else ""
 
         if arg in self.builtin_commands:
@@ -68,7 +69,7 @@ class TypeCommand(Command):
 
 
 class ExternalCommand(Command):
-    def execute(self, cmd, *args):
+    def execute(self, cmd: str, *args: str) -> None:
         path = find_executable(cmd)
 
         if not path:
