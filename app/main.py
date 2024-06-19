@@ -24,12 +24,15 @@ def main():
             "echo": "builtin",
             "exit": "builtin",
             "type": "builtin",
+            "pwd": "builtin"
         }
 
         if cmd == "echo":
             sys.stdout.write(' '.join(args) + '\n')
         elif cmd == "exit":
             sys.exit(0)
+        elif cmd == "pwd":
+            sys.stdout.write(f"{os.getcwd()}\n")
         elif cmd == "type":
             arg = args[0] if args else ""
             cmd_type = command_types.get(arg, "nonexistent")
