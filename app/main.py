@@ -7,8 +7,12 @@ def main():
         sys.stdout.flush()
 
         # Wait for user input
-        user_input = input()
-        sys.stdout.write(f"{user_input}: command not found\n")
+        input_command = input()
+
+        if input_command == "exit 0":
+            sys.exit(0)
+
+        sys.stdout.write(f"{input_command}: command not found\n")
 
 
 if __name__ == "__main__":
