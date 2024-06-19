@@ -1,5 +1,6 @@
 import os
 import sys
+import subprocess
 
 
 def find_executable(cmd: str) -> str:
@@ -25,10 +26,6 @@ def main():
             "type": "builtin",
         }
 
-        if cmd not in command_types:
-            sys.stdout.write(f"{input_command}: command not found\n")
-            continue
-
         if cmd == "echo":
             sys.stdout.write(' '.join(args) + '\n')
         elif cmd == "exit":
@@ -46,6 +43,13 @@ def main():
                     sys.stdout.write(f"{arg} is {path}\n")
                 else:
                     sys.stdout.write(f"{arg}: not found\n")
+        else:
+            path = find_executable(cmd)
+
+            if not path:
+                sys.stdout.write(f"{input_command}: command not found\n")
+            else:
+                subprocess.run([cmd] + args)
 
 
 if __name__ == "__main__":
